@@ -21,10 +21,10 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.w3schools.com algorithm_schema.xsd">
 
-    <iterations>1700</iterations>
+    <iterations>1024</iterations>
 
     <construction>
-        <insertion name="regretInsertion">
+        <insertion name="bestInsertion">
 
         </insertion>
     </construction>
@@ -33,26 +33,10 @@
         <memory>1</memory>
         <searchStrategies>
 
-            <searchStrategy name="randomRR">
-                <selector name="selectBest"/>
-                <acceptor name="schrimpfAcceptance">
-                    <alpha>0.1</alpha>
-                    <warmup>20</warmup>
-                </acceptor>
-                <modules>
-                    <module name="ruin_and_recreate">
-                        <ruin name="randomRuin">
-                            <share>0.5</share>
-                        </ruin>
-                        <insertion name="regretInsertion"/>
-                    </module>
-                </modules>
-                <probability>0.3</probability>
-            </searchStrategy>
-
+            
             <searchStrategy name="radialRuinAndRecreate">
                 <selector name="selectBest"/>
-                <acceptor name="schrimpfAcceptance"/>
+                <acceptor name="greedyAcceptance"/>
 
                 <modules>
                     <module name="ruin_and_recreate">
@@ -63,22 +47,9 @@
                     </module>
 
                 </modules>
-                <probability>0.3</probability>
+                <probability>1</probability>
             </searchStrategy>
             
-            <searchStrategy name="radialRR">
-                <selector name="selectBest"/>
-                <acceptor name="greedyAcceptance"/>
-                <modules>
-                    <module name="ruin_and_recreate">
-                        <ruin name="radialRuin">
-                            <share>0.3</share>
-                        </ruin>
-                        <insertion name="regretInsertion"/>
-                    </module>
-                </modules>
-                <probability>0.4</probability>
-            </searchStrategy>	
             
         </searchStrategies>
     </strategy>

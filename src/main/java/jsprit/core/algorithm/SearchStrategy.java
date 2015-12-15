@@ -145,8 +145,16 @@ public class SearchStrategy {
 		}
 		double costs = solutionCostCalculator.getCosts(lastSolution);
 		lastSolution.setCost(costs);
-		boolean solutionAccepted = solutionAcceptor.acceptSolution(solutions, lastSolution);
-		return new DiscoveredSolution(lastSolution, solutionAccepted, getId());
+		
+		boolean solutionAccepted;
+		
+		if(solution.getRoutes().size()==3){
+			solutionAccepted=solutionAcceptor.acceptSolution(solutions, lastSolution);
+			return new DiscoveredSolution(lastSolution,solutionAccepted,getId());
+		}
+		
+		solutionAccepted = solutionAcceptor.acceptSolution(solutions, solution);
+		return new DiscoveredSolution(solution, solutionAccepted, getId());
 	}
 
     private String getErrMsg() {

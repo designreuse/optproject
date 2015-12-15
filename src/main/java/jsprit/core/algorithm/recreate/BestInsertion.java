@@ -72,6 +72,7 @@ public final class BestInsertion extends AbstractInsertionStrategy{
 		for(Job unassignedJob : unassignedJobList){			
 			Insertion bestInsertion = null;
 			double bestInsertionCost = Double.MAX_VALUE;
+			if(vehicleRoutes.size()==3){
 			for(VehicleRoute vehicleRoute : vehicleRoutes){
 				InsertionData iData = bestInsertionCostCalculator.getInsertionData(vehicleRoute, unassignedJob, NO_NEW_VEHICLE_YET, NO_NEW_DEPARTURE_TIME_YET, NO_NEW_DRIVER_YET, bestInsertionCost); 
 				if(iData instanceof NoInsertionFound) {
@@ -81,7 +82,7 @@ public final class BestInsertion extends AbstractInsertionStrategy{
 					bestInsertion = new Insertion(vehicleRoute,iData);
 					bestInsertionCost = iData.getInsertionCost();
 				}
-			}
+			}}else{
             VehicleRoute newRoute = VehicleRoute.emptyRoute();
             InsertionData newIData = bestInsertionCostCalculator.getInsertionData(newRoute, unassignedJob, NO_NEW_VEHICLE_YET, NO_NEW_DEPARTURE_TIME_YET, NO_NEW_DRIVER_YET, bestInsertionCost);
             if(!(newIData instanceof NoInsertionFound)){
@@ -92,7 +93,7 @@ public final class BestInsertion extends AbstractInsertionStrategy{
             }
             if(bestInsertion == null) badJobs.add(unassignedJob);
             else insertJob(unassignedJob, bestInsertion.getInsertionData(), bestInsertion.getRoute());
-        }
+        }}
         return badJobs;
 	}
 

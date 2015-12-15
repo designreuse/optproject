@@ -56,9 +56,12 @@ public class Main {
 			Collection<VehicleRoutingProblemSolution> solutions = vra.searchSolutions();
 			// Extract the best solution
 			VehicleRoutingProblemSolution solution = new SelectBest().selectSolution(solutions);
-									
+				
+			
+			System.out.println(solution.getRoutes().size());
+			
 			// Print solution on a file
-			OROutils.write(solution, (String)options.get(PARAMS.INSTANCE), System.currentTimeMillis()-startTime, (String)options.get(CONSTANTS.OUTPUT));
+			//OROutils.write(solution, (String)options.get(PARAMS.INSTANCE), System.currentTimeMillis()-startTime, (String)options.get(CONSTANTS.OUTPUT));
 			
 			
 			// Print solution on the screen (optional)

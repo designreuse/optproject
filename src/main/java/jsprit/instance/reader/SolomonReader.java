@@ -79,7 +79,7 @@ public class SolomonReader {
 		vrpBuilder.setFleetSize(FleetSize.INFINITE);
 		BufferedReader reader = getReader(solomonFile);
 		int vehicleCapacity = 0;
-		
+		int vehicleNumber=1;
 		int counter = 0;
 		String line;
 		while((line = readLine(reader)) != null){
@@ -89,6 +89,7 @@ public class SolomonReader {
 			counter++;
 			if(counter == 5){
 				vehicleCapacity = Integer.parseInt(tokens[1]);
+				vehicleNumber= Integer.parseInt(tokens[0]);
 				continue;
 			}
 			if(counter > 9){
@@ -103,11 +104,12 @@ public class SolomonReader {
 					VehicleTypeImpl.Builder typeBuilder = VehicleTypeImpl.Builder.newInstance("solomonType").addCapacityDimension(0, vehicleCapacity);
 					typeBuilder.setCostPerDistance(1.0*variableCostProjectionFactor).setFixedCost(fixedCostPerVehicle);
 					VehicleTypeImpl vehicleType = typeBuilder.build();
-
-					VehicleImpl vehicle = VehicleImpl.Builder.newInstance("solomonVehicle").setEarliestStart(start).setLatestArrival(end)
-							.setStartLocation(Location.Builder.newInstance().setId(customerId)
-									.setCoordinate(coord).build()).setType(vehicleType).build();
-					vrpBuilder.addVehicle(vehicle);
+					for(int i=0;i<vehicleNumber;i++){
+						VehicleImpl vehicle = VehicleImpl.Builder.newInstance("solomonVehicle"+i).setEarliestStart(start).setLatestArrival(end)
+								.setStartLocation(Location.Builder.newInstance().setId(customerId)
+										.setCoordinate(coord).build()).setType(vehicleType).build();
+						vrpBuilder.addVehicle(vehicle);
+					}	
 					
 				}
 				else{
